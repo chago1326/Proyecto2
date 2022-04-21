@@ -49,4 +49,12 @@ class BaseController extends Controller
 
         // E.g.: $this->session = \Config\Services::session();
     }
+
+    public function renderTemplate($view, $parameters) {
+        $parameters['user'] = $_SESSION['user_type'];
+        echo view('shared/head', $parameters);
+        echo view('shared/menu', $parameters);
+        echo $view;
+        echo view('shared/footer', $parameters);
+    }
 }
