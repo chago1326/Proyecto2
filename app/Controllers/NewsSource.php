@@ -27,31 +27,7 @@ class NewsSource extends BaseController
 
     public function edit($id)
     {
-        // $user = $_SESSION['user'];
-        // if (!$user) {
-        // header('Location: login.php');
-        // }
-
-
-        //     }
-        // /** actualiza los datos de la tabla del id enviado */
-        // if (isset($_POST["save"])){
-        //     $id = $_GET["id"];
-        //     $name = $_POST["nameNewsSource"];
-        //     $category = $_POST["categoryNewsSource"];
-        //     $query = "UPDATE newssources SET nameSource = \"$name\" ,  categorySource = \"$category\" WHERE id=$id";
-        //     $result = mysqli_query(credentials(),$query);
-        //     header('Location: newSources.php');
-        // }
-
-
-        // $query = "SELECT * FROM categories";
-        // $excutingQuery = mysqli_query(credentials(),$query);
-        // while ($row = mysqli_fetch_array($excutingQuery)){
-        // $category = $row ["category"];
-        //     echo "<option value=\"$category\">$category</option>";
-        // }
-
+    
         $newsModel = new \App\Models\NewsSource();
         $newsSource = $newsModel->find($id);
 
@@ -64,13 +40,13 @@ class NewsSource extends BaseController
     }
 
     /**
-     * Esta funcion guarda y actuliza.
+     * Actualiza y inserta en la base de datos
      */
     public function save()
     {
         $newsModel = new \App\Models\NewsSource();
         $id = $this->request->getVar('id');
-        if ($id) { //edit
+        if ($id) { //Condicion para  actulizar 
             $data = [
                 'id' => $id,
                 'title' => $this->request->getVar('title'),
