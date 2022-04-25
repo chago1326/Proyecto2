@@ -8,9 +8,6 @@
 			<li class="menu-toggle">
 				<button onclick="toggleMenu();">&#9776;</button>
 			</li>
-			<li class="menu-item hidden"><a href="#">Mis noticias</a></li>
-			<li class="menu-item hidden"><a href="#">Ingreso de una nueva noticia</a></li>
-			<li class="menu-item hidden"><a href="/newssource">Mantenimiento de noticias</a></li>
 			<li class="menu-item hidden"><a href="/" target="_blank">Logout</a>
 			</li>
 		</ul>

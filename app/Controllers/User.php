@@ -19,14 +19,34 @@ class User extends BaseController{
         return parent::mostrarSinMenu($content, $data);
     }
 
+    public function noticiaNueva()
+    {
+        $data['pageTitle'] = 'Noticia nueva';
+        $content = view('user/nuevaNoticia');
+        return parent::renderTemplate($content, $data);
+    }
+    public function crudNoticias()
+    {
+        $data['pageTitle'] = 'Mantenimiento de tus noticias';
+        $content = view('user/crudNoticias');
+        return parent::renderTemplate($content, $data);
+    }
+    public function editarNoticia()
+    {
+        $data['pageTitle'] = 'Actualizacion de noticias';
+        $content = view('user/editarNoticia');
+        return parent::renderTemplate($content, $data);
+    }
+    
+
 //ingresa los usuario tengo que arrelar lo de las rutas
     public function guardar(){
-
-        $usuario = new Usuario();
+        
        
-     
+
+         $usuario = new Usuario(); 
         $datos=[
-            
+        'cedula'=>$this->request->getVar('id_cedula'),
         'nombre'=>$this->request->getVar('nombre'),
         'apellido' => $this->request->getVar('apellido'),
         'correo' => $this->request->getVar('email'),
@@ -36,6 +56,7 @@ class User extends BaseController{
         ];
 
         $usuario ->insert($datos);
+        
 
 
     }
