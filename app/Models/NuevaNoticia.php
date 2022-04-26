@@ -3,11 +3,11 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Usuario extends Model{
-    protected $table      = 'usuarios';
-
-    protected $primaryKey = 'id_cedula';
-    protected $allowedFields=['id_cedula','email','nombre','apellido','contrasenna','rol_id'];
+class NuevaNoticia extends Model{
+    protected $table      = 'undefined';
+   
+    protected $primaryKey = 'id';
+    protected $allowedFields=['id','categoria_nom'];
 
     protected $useAutoIncrement = true;
 
@@ -23,9 +23,4 @@ class Usuario extends Model{
     protected $validationRules    = [];
     protected $validationMessages = [];
     protected $skipValidation     = false;
-
-
-    
-     
-     
 }

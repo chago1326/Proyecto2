@@ -32,7 +32,14 @@ $routes->setAutoRoute(false);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/','User::login');
-
+$routes->get('register', 'User::register');
+$routes->post('guardar', 'User::guardar');
+$routes->get('nuevaNoticia', 'User::NoticiaNueva');
+$routes->get('crudNoticias', 'User::crudNoticias');
+$routes->get('editarNoticia', 'User::editarNoticia');
+$routes->get('crudCategorias', 'Admin::categorias');
+$routes->post('acceso', 'User::acceso');
+$routes->post('ingresarCategorias', 'Admin::ingresarCategorias');
 
 
 /*
@@ -51,9 +58,3 @@ $routes->get('/','User::login');
 if (file_exists(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
     require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
 }
-$routes->get('register', 'User::register');
-$routes->post('/guardar', 'User::guardar');
-$routes->get('nuevaNoticia', 'User::NoticiaNueva');
-$routes->get('crudNoticias', 'User::crudNoticias');
-$routes->get('editarNoticia', 'User::editarNoticia');
-$routes->get('crudCategorias', 'Admin::categorias');

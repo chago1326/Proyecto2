@@ -39,25 +39,72 @@ class User extends BaseController{
     }
     
 
-//ingresa los usuario tengo que arrelar lo de las rutas
+//ingresa los usuario.
     public function guardar(){
-        
-       
-
-         $usuario = new Usuario(); 
+        $usuario = new Usuario(); 
         $datos=[
-        'cedula'=>$this->request->getVar('id_cedula'),
+        'id_cedula'=>$this->request->getVar('id_cedula'),
+        'email' => $this->request->getVar('email'),
         'nombre'=>$this->request->getVar('nombre'),
         'apellido' => $this->request->getVar('apellido'),
-        'correo' => $this->request->getVar('email'),
-        'contra' => $this->request->getVar('contrasenna'),
-        'tipoUsua' => $this->request->getVar('tipoUsua')
-
+        'contrasenna' => $this->request->getVar('contrasenna'),
+        'rol_id' => $this->request->getVar('tipoUsua')
         ];
 
         $usuario ->insert($datos);
+
+        $data['pageTitle'] = 'Login';
+        $content = view('user/login');
+        print_r("Registro exitoso");
+        return parent::mostrarSinMenu($content, $data);
+      
         
 
 
+
+    }
+
+//Funcion del login para acceder al sistema da un error en la linea 76
+    public function acceso(){
+       
+
+        $usuario = new Usuario();
+        
+        $username = $this ->request ->getVar('username');
+        $contrasenna = $this ->request ->getVar('password');
+
+        $data = $usuario->where('id_cedula', $username)->first();
+
+        if($data){
+            $pass = $data['contrasenna'];
+            $authenticatePassword = password_verify($contrasenna, $pass);
+            if($authenticatePassword){
+                $ses_data = [
+                    'id_cedula' => $data['id_cedula'],
+                    'nombre' => $data['nombre'],
+                    'isLoggedIn' => TRUE
+                ];
+                
+                //cambiarlo por el dashboard
+                return redirect()->to('/nuevaNoticia');
+
+            }else{
+        print_r('Usuario no exite!!');
+        $data['pageTitle'] = 'Login';
+        $content = view('user/login');
+        return parent::mostrarSinMenu($content, $data);
+
+       }
+       
+       }
+
+       
+        
+    }
+    public function logout()
+    {
+        $session = session();
+        $session->destroy();
+        return redirect()->to('/index');
     }
 }

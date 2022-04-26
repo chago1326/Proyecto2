@@ -2,7 +2,7 @@
 
 	<h1>Login</h1>
 	<p>Fill the following .</p>
-  <form method="post" action="<?= base_url('user/guardarUsuario'); ?>">
+  <form method="post" action="<?= base_url('/acceso'); ?>">
     <div class="form-group">
       <label for="username">Usuario</label>
       <input id="username" class="form-control" type="text" name="username" placeholder="Ingrese su usuario">

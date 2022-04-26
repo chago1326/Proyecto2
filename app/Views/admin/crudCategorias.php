@@ -6,7 +6,7 @@
 
             <div class="col-md-3">
                 <h1>Ingrese la informacion de las categorias</h1>
-                <form action="" method="POST">
+                <form action="<?=base_url('/ingresarCategorias');?>" method="POST">
                     <input type="text" class="form-control mb-3" name="nombres" placeholder="Nombres" required>
 
 
@@ -25,18 +25,23 @@
                             <th></th>
                         </tr>
                     </thead>
-
                     <tbody>
-
-                        <tr>
-                            <th hidden>></th>
-                            <th></th>
-
-                            <th><a href="" class="btn btn-info">Editar</a></th>
-                            <th><a href="" class="btn btn-danger">Eliminar</a></th>
-                        </tr>
-
-                    </tbody>
+            <?php
+            //arreglar el foreach
+              foreach ($newssources as $source) { ?>
+                <tr>
+                  <td><?php echo $source['id'] ?></td>
+                  <td><?php echo $source['nombre'] ?></td>
+                  
+                  <td>
+                    <a class="btn btn-secondary" href="<?php echo base_url(['newssource','edit',$source['id']]);?>">Edit</a>
+                    <a class="btn btn-danger" href="<?php echo base_url(['newssource','delete',$source['id']]);?>">Delete</a>
+                  </td>
+                </tr>
+            <?php } ?>
+          </tbody>
+                    
+                        
                 </table>
             </div>
         </div>
