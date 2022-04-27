@@ -27,15 +27,15 @@
                     </thead>
                     <tbody>
             <?php
-            //arreglar el foreach
-              foreach ($newssources as $source) { ?>
+            
+              foreach ($datos as $source) { ?>
                 <tr>
-                  <td><?php echo $source['id'] ?></td>
-                  <td><?php echo $source['nombre'] ?></td>
+                  <td hidden><?php echo $source['id']; ?></td>
+                  <td><?php echo $source['categoria_nom']; ?></td>
                   
                   <td>
-                    <a class="btn btn-secondary" href="<?php echo base_url(['newssource','edit',$source['id']]);?>">Edit</a>
-                    <a class="btn btn-danger" href="<?php echo base_url(['newssource','delete',$source['id']]);?>">Delete</a>
+                    <a class="btn btn-secondary" href="<?php echo base_url(['admin','edit',$source['id']]);?>">Edit</a>
+                    <a class="btn btn-danger" href="<?php echo base_url(['admin','borrar',$source['id']]);?>">Delete</a>
                   </td>
                 </tr>
             <?php } ?>

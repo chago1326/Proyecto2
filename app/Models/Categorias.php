@@ -8,11 +8,11 @@ class Categorias extends Model{
     // Uncomment below if you want add primary key
     protected $primaryKey = 'id';
     protected $allowedFields=['id','categoria_nom'];
-
     protected $useAutoIncrement = true;
-
     protected $returnType     = 'array';
     protected $useSoftDeletes = true;
+    protected $insertID         = 0;
+    protected $protectFields    = true;
 
 
     protected $useTimestamps = false;
@@ -23,4 +23,6 @@ class Categorias extends Model{
     protected $validationRules    = [];
     protected $validationMessages = [];
     protected $skipValidation     = false;
+
+    
 }

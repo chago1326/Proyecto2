@@ -40,6 +40,8 @@ $routes->get('editarNoticia', 'User::editarNoticia');
 $routes->get('crudCategorias', 'Admin::categorias');
 $routes->post('acceso', 'User::acceso');
 $routes->post('ingresarCategorias', 'Admin::ingresarCategorias');
+$routes->get('crudCategorias', 'Admin::pantallaPrincipal');
+$routes->get('borrar/(:num)', 'Admin::borrar/$1');
 
 
 /*
