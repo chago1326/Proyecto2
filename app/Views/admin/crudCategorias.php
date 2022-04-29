@@ -34,7 +34,7 @@
                   <td><?php echo $source['categoria_nom']; ?></td>
                   
                   <td>
-                    <a class="btn btn-secondary" href="<?php echo base_url(['admin','edit',$source['id']]);?>">Edit</a>
+                    <a class="btn btn-secondary" href="<?php echo base_url(['admin','editar',$source['id']]);?>">Edit</a>
                     <a class="btn btn-danger" href="<?php echo base_url(['admin','borrar',$source['id']]);?>">Delete</a>
                   </td>
                 </tr>

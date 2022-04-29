@@ -42,13 +42,18 @@ class User extends BaseController{
 //ingresa los usuario.
     public function guardar(){
         $usuario = new Usuario(); 
+        if($rol=$_POST['tipoUsua'] == 'Administrador'){
+            $rol1 = '1';
+          }else{
+            $rol1 = '2';
+          }
         $datos=[
         'id_cedula'=>$this->request->getVar('id_cedula'),
         'email' => $this->request->getVar('email'),
         'nombre'=>$this->request->getVar('nombre'),
         'apellido' => $this->request->getVar('apellido'),
         'contrasenna' => $this->request->getVar('contrasenna'),
-        'rol_id' => $this->request->getVar('tipoUsua')
+        'rol_id' => ($rol1)
         ];
 
         $usuario ->insert($datos);
