@@ -3,12 +3,12 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class NuevaNoticia extends Model{
-    protected $table      = 'undefined';
-   
-    protected $primaryKey = 'id';
-    protected $allowedFields=['id','categoria_nom'];
+class News extends Model{
 
+    protected $table      = 'nuevas_noticias';
+    
+    protected $primaryKey = 'id_nue_noticas';
+    protected $allowedFields=['id_nue_noticas','nombre_noti','url_rss','categoria_id','id_usuario'];
     protected $useAutoIncrement = true;
 
     protected $returnType     = 'array';
@@ -23,4 +23,6 @@ class NuevaNoticia extends Model{
     protected $validationRules    = [];
     protected $validationMessages = [];
     protected $skipValidation     = false;
+
+
 }

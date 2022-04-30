@@ -34,15 +34,21 @@ $routes->setAutoRoute(false);
 $routes->get('/','User::login');
 $routes->get('register', 'User::register');
 $routes->post('guardar', 'User::guardar');
-$routes->get('nuevaNoticia', 'User::NoticiaNueva');
-$routes->get('crudNoticias', 'User::crudNoticias');
-$routes->get('editarNoticia', 'User::editarNoticia');
+$routes->get('nuevaNoticia', 'NewsSource::NoticiaNueva');
+$routes->get('crudNoticias', 'NewsSource::crudNoticias');
+$routes->get('editarNoticia', 'NewsSource::editarNoticia');
 $routes->get('crudCategorias', 'Admin::categorias');
 $routes->post('acceso', 'User::acceso');
 $routes->post('ingresarCategorias', 'Admin::ingresarCategorias');
 $routes->get('admin/borrar/(:num)', 'Admin::borrar/$1');
 $routes->get('admin/editar/(:num)', 'Admin::editar/$1');
 $routes->post('actualizar', 'Admin::actualizar');
+$routes->post('guardarNo', 'NewsSource::guardarNo');
+$routes->post('actualiazNo', 'NewsSource::actualiazNo');
+$routes->get('news/borrarNo/(:num)', 'NewsSource::borrarNo/$1');
+$routes->get('news/editarNo/(:num)', 'NewsSource::editarNo/$1');
+$routes->get('dashboard', 'NewsSource::dashboard');
+$routes->get('dashboard', 'NewsSource::mostrar');
 
 
 /*

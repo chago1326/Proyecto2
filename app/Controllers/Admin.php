@@ -6,17 +6,13 @@ use App\Models\Categorias;
 class Admin extends BaseController{
 
 
-    
-     function __construct(){
-           $categorias = new Categorias();; 
-            
-            $this->resul = $categorias->query("SELECT * FROM `categorias`");
-            
-      
-    }
 
+       
+    //Me lleva a la pantalla de categorias y de igual manero lleno los campos para poder realizar el crud
     public function categorias()
     {
+        $categorias = new Categorias();
+        $this->resul =$categorias->query("SELECT * FROM `categorias` ") ;
         $consulta = $this->resul;
         $data['datos'] = $consulta->getResultArray();
         $data['pageTitle'] = 'Manteniento de categorias';
@@ -24,6 +20,7 @@ class Admin extends BaseController{
         return parent::menuAdmin($content, $data);
     }
 
+    
     public function pantallaPrincipal(){
 
         $data['pageTitle'] = 'Manteniento de categorias';
@@ -54,33 +51,30 @@ class Admin extends BaseController{
        
 
     }
-    //metodo de eliminar preguntar 
+    //metodo de eliminar 
     public function borrar($id=null){
         $categorias = new Categorias(); 
-        //$categorias->query("DELETE FROM `categorias` WHERE id = '$id'");
-        $deleCate = $categorias->where('id',$id)->first();
-        $categorias->where('$id',$id)->delete($id);
-
+        $categorias->query("DELETE FROM `categorias` WHERE id = '$id'");
+        
         
         return redirect()->to('/crudCategorias');
 
     }
 
-//preguntar marcos
-//Por que utilize [0][id] por que esta funcion lo que hace es meter un array sobre otro
+
+   //Me lleva a la pantalla de editar y captura el id y el nombre de la categoria para poder editarla
     public function editar($id=null){
        
         $categorias = new categorias();
         $this->resul =$categorias->query("SELECT * FROM `categorias` WHERE id = '$id'") ;
-        //$data['categorias']=$categorias->where('id',$id)->first();
         $consulta = $this->resul;
         $data['datos'] = $consulta->getResultArray();
         $data['pageTitle'] = 'Manteniento de categorias';
         $content = view('admin/actualizarCategoria',$data);
         return parent::menuAdmin($content,$data);
     }
-
-
+    
+//Funcion de actulizar categoria
     public function actualizar(){
         $categorias = new categorias();
         $cate=[
@@ -88,8 +82,6 @@ class Admin extends BaseController{
             ];
             $id=$this->request->getVar('id');
             $categorias ->update($id,$cate);
-            $consulta = $this->resul;
-            $data['datos'] = $consulta->getResultArray();
             return redirect()->to('/crudCategorias');
 
     }

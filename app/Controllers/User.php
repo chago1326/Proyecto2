@@ -3,15 +3,18 @@ namespace App\Controllers;
 
 use CodeIgniter\Controller;
 use App\Models\Usuario;
+use App\Models\Categorias;
 class User extends BaseController{
 
+
+    //Para ir a la ventana de el registro de usuarios
  public function register()
     {
         $data['pageTitle'] = 'Registro de usuario';
         $content = view('user/register');
         return parent::mostrarSinMenu($content, $data);
     }
-
+    //Para ir a la ventana de el login de usuarios
     public function login()
     {
         $data['pageTitle'] = 'Login';
@@ -19,25 +22,8 @@ class User extends BaseController{
         return parent::mostrarSinMenu($content, $data);
     }
 
-    public function noticiaNueva()
-    {
-        $data['pageTitle'] = 'Noticia nueva';
-        $content = view('user/nuevaNoticia');
-        return parent::renderTemplate($content, $data);
-    }
-    public function crudNoticias()
-    {
-        $data['pageTitle'] = 'Mantenimiento de tus noticias';
-        $content = view('user/crudNoticias');
-        return parent::renderTemplate($content, $data);
-    }
-    public function editarNoticia()
-    {
-        $data['pageTitle'] = 'Actualizacion de noticias';
-        $content = view('user/editarNoticia');
-        return parent::renderTemplate($content, $data);
-    }
-    
+
+
 
 //ingresa los usuario.
     public function guardar(){
@@ -56,6 +42,7 @@ class User extends BaseController{
         'rol_id' => ($rol1)
         ];
 
+
         $usuario ->insert($datos);
 
         $data['pageTitle'] = 'Login';
@@ -69,19 +56,18 @@ class User extends BaseController{
 
     }
 
+
 //Funcion del login para acceder al sistema da un error en la linea 76
     public function acceso(){
        
-
         $usuario = new Usuario();
         
         $username = $this ->request ->getVar('username');
         $contrasenna = $this ->request ->getVar('password');
-
         $data = $usuario->where('id_cedula', $username)->first();
-
         if($data){
             $pass = $data['contrasenna'];
+            $rol = $data['rol_id'];
             $authenticatePassword = password_verify($contrasenna, $pass);
             if($authenticatePassword){
                 $ses_data = [
@@ -90,8 +76,20 @@ class User extends BaseController{
                     'isLoggedIn' => TRUE
                 ];
                 
-                //cambiarlo por el dashboard
-                return redirect()->to('/nuevaNoticia');
+                if($rol =="2"){
+                    //cambiarlo por el dashboard
+
+                    $data['pageTitle'] = 'Noticia nueva';
+                    $content = view('news/nuevaNoticia',$data);
+                    return parent::renderTemplate($content, $data);
+
+
+                }else{
+                    $data['pageTitle'] = 'Manteniento de categorias';
+                    $content = view('admin/crudCategorias',$data);
+                    return parent::menuAdmin($content, $data);
+
+                }
 
             }else{
         print_r('Usuario no exite!!');
@@ -106,6 +104,9 @@ class User extends BaseController{
        
         
     }
+
+
+    //Cierra la sesion del usuario
     public function logout()
     {
         $session = session();

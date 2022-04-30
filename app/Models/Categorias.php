@@ -24,5 +24,6 @@ class Categorias extends Model{
     protected $validationMessages = [];
     protected $skipValidation     = false;
 
+   
     
 }
