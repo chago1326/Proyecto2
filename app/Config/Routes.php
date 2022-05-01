@@ -49,6 +49,7 @@ $routes->get('news/borrarNo/(:num)', 'NewsSource::borrarNo/$1');
 $routes->get('news/editarNo/(:num)', 'NewsSource::editarNo/$1');
 $routes->get('dashboard', 'NewsSource::dashboard');
 $routes->get('dashboard', 'NewsSource::mostrar');
+$routes->post('busqueda', 'NewsSource::busqueda');
 
 
 /*

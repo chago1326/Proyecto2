@@ -1,6 +1,7 @@
 <?php
       consulta();
 
+      //Consulta y elimina en la base de datos elimina los viejas noticias
       function consulta(){
         $conn = new mysqli('localhost', 'root', '', 'proyecto2');
 
@@ -9,7 +10,7 @@
         
   
   
-        //Consunta a la base de datos para llamar a los datos.
+        //Consulta a la base de datos para llamar a los datos.
   
         $sqlCon="SELECT * FROM `nuevas_noticias`";
         $quer= mysqli_query($conn,$sqlCon);
@@ -28,7 +29,7 @@
      
 
 
-       //funcion para guardar a la
+       //funcion para guardar a la base de datos
         function guardar($rss,$idNo,$usu,$categoria){
           $conn = new mysqli('localhost', 'root', '', 'proyecto2');;
           $url = "$rss";

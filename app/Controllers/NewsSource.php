@@ -64,21 +64,22 @@ class NewsSource extends BaseController
 
     }
 
+    //me lleva los datos que necesito para editar a la pantalla de edicion de noticia
     public function editarNo($id=null){
         $news = new News();
-        $this->resul =$news->query("SELECT * FROM `nuevas_noticias` WHERE id_nue_noticas = '$id'") ;
+        $this->resul =$news->query("SELECT nuevas_noticias.id_nue_noticas,nuevas_noticias.nombre_noti,nuevas_noticias.url_rss,categorias.categoria_nom,nuevas_noticias.id_usuario FROM `nuevas_noticias`,`categorias` WHERE id_nue_noticas = '$id' and nuevas_noticias.categoria_id = categorias.id") ;
         $consulta = $this->resul;
         $data['datos'] = $consulta->getResultArray();
 
+
         //Para llenar el select si el usuario quiere cmabiar de categorias
         $categorias = new Categorias();
-        
         $this->resul =$categorias->query("SELECT * FROM `categorias` ") ;
         $consulta2 = $this->resul;
-        $date['cate'] = $consulta2->getResultArray();
+        $data['cate'] = $consulta2->getResultArray();
 
         $data['pageTitle'] = 'Actualizacion de noticias';
-        $content = view('news/editarNoticia',$data,$date);
+        $content = view('news/editarNoticia',$data);
         return parent::renderTemplate($content, $data);
     }
 
@@ -101,19 +102,30 @@ class NewsSource extends BaseController
         return redirect()->to('/crudNoticias');
 
     }
+    //Esta funcion es una consulta a la base de datos con la informacion de la noticias para poderlas mostrar
     public function dashboard(){
-        $data['pageTitle'] = 'Mis noticias';
-        $content = view('user/dashboard');
-        return parent::renderTemplate($content, $data);
-
-    }
-
-    public function mostrar(){
         $usua ='207880338';
         $noticia = new Portada();
         $this->resul =$noticia->query("SELECT * FROM `noticias` where usuario_id = '$usua'");
         $consulta = $this->resul;
-        $data['datos'] = $consulta->getResultArray();
+        $data['mos'] = $consulta->getResultArray();
+
+        $this->resul =$noticia ->query("SELECT categorias.categoria_nom FROM `noticias`,`categorias` WHERE noticias.categoria_id = categorias.id");
+        $consulta4 =$this->resul;
+        $data['categori'] = $consulta4->getResultArray();
+        $data['pageTitle'] = 'Mis noticias';
+        $content = view('user/dashboard',$data);
+        return parent::renderTemplate($content, $data);
+
+    }
+    //metodo para relealizar busqueda
+    public function busqueda(){
+
+        $buscar = $this ->request ->getVar('buscar');
+        $noticia = new Portada();
+        $this->resul =$noticia->query("SELECT * FROM `noticias`,`categorias` WHERE noticias.titulo LIKE '%$buscar%' or noticias.descripcion LIKE '%$buscar%'");
+        $consulta = $this->resul;
+        $data['mos'] = $consulta->getResultArray();
         $data['pageTitle'] = 'Mis noticias';
         $content = view('user/dashboard',$data);
         return parent::renderTemplate($content, $data);

@@ -4,6 +4,7 @@ namespace App\Controllers;
 use CodeIgniter\Controller;
 use App\Models\Usuario;
 use App\Models\Categorias;
+use App\Models\Portada;
 class User extends BaseController{
 
 
@@ -57,49 +58,62 @@ class User extends BaseController{
     }
 
 
-//Funcion del login para acceder al sistema da un error en la linea 76
-    public function acceso(){
-       
-        $usuario = new Usuario();
-        
+//Funcion del login para acceder al sistema 
+    public function acceso()
+    {
+     $usuario = new Usuario();
+     $portada = new Portada();
         $username = $this ->request ->getVar('username');
         $contrasenna = $this ->request ->getVar('password');
-        $data = $usuario->where('id_cedula', $username)->first();
-        if($data){
-            $pass = $data['contrasenna'];
-            $rol = $data['rol_id'];
-            $authenticatePassword = password_verify($contrasenna, $pass);
-            if($authenticatePassword){
+        $query=$usuario->query("SELECT * FROM `usuarios`,`roles` 
+        WHERE usuarios.id_cedula = '$username' AND usuarios.contrasenna = '$contrasenna' and usuarios.rol_id = roles.id_rol");
+
+        $datos = $query->getRow();
+        //convierto el objeto en array para poderlo buscar bien.
+        $array = json_decode(json_encode($datos), true);
+        $rol_usuario = '2';
+        $rol_id_admin = '1';
+        $query2=$portada->query("SELECT * FROM `noticias`");
+        $cons = $query2->getRow();
+        //convierto el objeto en array para poderlo buscar bien.
+        $array2 = json_decode(json_encode($cons), true);
+
+
+
+        if ($array) {
+            $pass = $array['contrasenna'];
+            $rol = $array['rol_id'];
+            $pass = password_hash($pass, PASSWORD_BCRYPT);
+            if (password_verify($contrasenna, $pass) && $rol === $rol_usuario) {
                 $ses_data = [
-                    'id_cedula' => $data['id_cedula'],
-                    'nombre' => $data['nombre'],
-                    'isLoggedIn' => TRUE
+                    'id_cedula' => $array['id_cedula'],
+                    'nombre' => $array['nombre'],
+                    'logged_in'     => TRUE
                 ];
-                
-                if($rol =="2"){
-                    //cambiarlo por el dashboard
+                //preguntar a marcos mañana
+                //$session->set($ses_data);
 
-                    $data['pageTitle'] = 'Noticia nueva';
-                    $content = view('news/nuevaNoticia',$data);
-                    return parent::renderTemplate($content, $data);
-
-
+                if($array2 ==null){
+                    return redirect()->to('/nuevaNoticia');
                 }else{
-                    $data['pageTitle'] = 'Manteniento de categorias';
-                    $content = view('admin/crudCategorias',$data);
-                    return parent::menuAdmin($content, $data);
-
+                    return redirect()->to('/dashboard');
                 }
-
-            }else{
-        print_r('Usuario no exite!!');
-        $data['pageTitle'] = 'Login';
-        $content = view('user/login');
-        return parent::mostrarSinMenu($content, $data);
-
-       }
-       
-       }
+            } elseif (password_verify($contrasenna, $pass) && $rol === $rol_id_admin) {
+                $ses_data = [
+                    'id_cedula' => $array['id_cedula'],
+                    'nombre' => $array['nombre'],
+                    'logged_in'     => TRUE
+                ];
+                //$session->set($ses_data);
+                return redirect()->to('/crudCategorias');
+            } 
+        }else {
+            print_r('Usuario no exite!!');
+            $data['pageTitle'] = 'Login';
+            $content = view('user/login');
+            return parent::mostrarSinMenu($content, $data);
+           
+        }
 
        
         
@@ -113,4 +127,5 @@ class User extends BaseController{
         $session->destroy();
         return redirect()->to('/index');
     }
+
 }

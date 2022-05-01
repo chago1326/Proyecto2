@@ -1,15 +1,4 @@
 <section>
-<?php
-
-
-
-print_r($datos);
-
-
-
-
-?>
-
 <div class="container mt-5">
     <form action="<?=base_url('/actualiazNo');?>" method="POST">
 
@@ -19,14 +8,21 @@ print_r($datos);
         <input type="text" class="form-control mb-3" name="rssUrl" placeholder="Url"
             value="<?=$datos[0]['url_rss']?>">
        
-        <select name="categorias" id="categorias"   >
+        <select name="categorias" id="categorias"  >
        
-           
-           <!-- <option value="<//=$datos[0]['categoria_nom']?>"></option> -->
+        <?php
+	     
+         foreach ($datos as $valores) {
+             echo "<option value=\"$valores[id_nue_noticas]\">$valores[categoria_nom]</option>";
              
+         }
+          
+         foreach ($cate as $valores) {
+             echo "<option value=\"$valores[id]\">$valores[categoria_nom]</option>";
+             
+         }
          
-       
-            
+       ?>
         </select>
         <br>
         <br>

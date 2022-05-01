@@ -29,10 +29,6 @@ class Admin extends BaseController{
       
     }
 
-   
-
-
-
 
     //ingresar los categorias.
     public function ingresarCategorias(){
@@ -43,9 +39,6 @@ class Admin extends BaseController{
 
         $categorias ->insert($cate);
         
-        $consulta = $this->resul;
-
-        $data['datos'] = $consulta->getResultArray();
       
         return redirect()->to('/crudCategorias');
        
