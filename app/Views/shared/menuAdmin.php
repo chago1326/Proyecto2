@@ -8,7 +8,7 @@
 			<li class="menu-toggle">
 				<button onclick="toggleMenu();">&#9776;</button>
 			</li>
-			<li class="menu-item hidden"><a href="/" target="_blank">Logout</a>
+			<li class="menu-item hidden"><a href="<?php echo base_url("/login");?>" target="_blank">Logout</a>
 			</li>
 		</ul>
 	</div>

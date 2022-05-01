@@ -22,8 +22,6 @@
                     <th hidden><?php  echo $row['url_rss']?></th>
                     <th><?php  echo $row['categoria_nom']?></th>
                     <th hidden><?php  echo $row['id_usuario']?></th>
-
-
                     <th><a href="<?php echo base_url(['news','editarNo',$row['id_nue_noticas']]);?>"
                             class="btn btn-info">Editar</a>
                     </th>

@@ -4,20 +4,25 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-
+  
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-       <!--falta lo de rellenar con la consulta--> 
-    <?//php foreach ($categori as $valores) {?>
-        <li class="nav-item active">
-        <a class="nav-link" href="#"> 
-        <?//php echo "\"$valores[id]\">$valores[categoria_nom]"?>;
+    <form action="<?=base_url('/filtrar');?>" class="navbar-nav mr-auto"  method="POST">
 
-            <span class="sr-only">(current)</span></a>
-      </li>
-			
-	<?	//}?>
+    <?php
+       
+        
+       foreach ($categori as $valores) {
       
+         echo "<button id=filtro  type=submit value=\"$valores[categoria_nom]\">$valores[categoria_nom]</button>";
+       }
+       
+     ?>
+      
+    </form>
+    
+
+        
       
     </ul>
     <form action="<?=base_url('/busqueda');?>" class="form-inline my-2 my-lg-0"  method="POST">

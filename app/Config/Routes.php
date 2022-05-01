@@ -31,7 +31,7 @@ $routes->setAutoRoute(false);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/','User::login');
+$routes->get('/login','User::login');
 $routes->get('register', 'User::register');
 $routes->post('guardar', 'User::guardar');
 $routes->get('nuevaNoticia', 'NewsSource::NoticiaNueva');
@@ -50,6 +50,7 @@ $routes->get('news/editarNo/(:num)', 'NewsSource::editarNo/$1');
 $routes->get('dashboard', 'NewsSource::dashboard');
 $routes->get('dashboard', 'NewsSource::mostrar');
 $routes->post('busqueda', 'NewsSource::busqueda');
+$routes->post('filtrar', 'NewsSource::filtrar');
 
 
 /*

@@ -110,7 +110,7 @@ class NewsSource extends BaseController
         $consulta = $this->resul;
         $data['mos'] = $consulta->getResultArray();
 
-        $this->resul =$noticia ->query("SELECT categorias.categoria_nom FROM `noticias`,`categorias` WHERE noticias.categoria_id = categorias.id");
+        $this->resul =$noticia ->query("SELECT DISTINCT categorias.categoria_nom FROM `noticias`,`categorias` WHERE noticias.categoria_id = categorias.id");
         $consulta4 =$this->resul;
         $data['categori'] = $consulta4->getResultArray();
         $data['pageTitle'] = 'Mis noticias';
@@ -126,6 +126,30 @@ class NewsSource extends BaseController
         $this->resul =$noticia->query("SELECT * FROM `noticias`,`categorias` WHERE noticias.titulo LIKE '%$buscar%' or noticias.descripcion LIKE '%$buscar%'");
         $consulta = $this->resul;
         $data['mos'] = $consulta->getResultArray();
+
+        $this->resul =$noticia ->query("SELECT DISTINCT categorias.categoria_nom FROM `noticias`,`categorias` WHERE noticias.categoria_id = categorias.id");
+        $consulta4 =$this->resul;
+        $data['categori'] = $consulta4->getResultArray();
+        $data['pageTitle'] = 'Mis noticias';
+        $content = view('user/dashboard',$data);
+        return parent::renderTemplate($content, $data);
+
+       
+
+    }
+
+    //funcion para filtrar por categorias
+    public function filtrar(){
+        $noticia = new Portada();
+        $filtro = $this ->request ->getVar('filtro');
+        //ARREGLAR la consulta
+        $this->resul =$noticia->query("SELECT * FROM `noticias`,`categorias` WHERE noticias.categoria_id = '$filtro'");
+        $consulta = $this->resul;
+        $data['mos'] = $consulta->getResultArray();
+
+        $this->resul =$noticia ->query("SELECT DISTINCT categorias.categoria_nom FROM `noticias`,`categorias` WHERE noticias.categoria_id = categorias.id");
+        $consulta4 =$this->resul;
+        $data['categori'] = $consulta4->getResultArray();
         $data['pageTitle'] = 'Mis noticias';
         $content = view('user/dashboard',$data);
         return parent::renderTemplate($content, $data);

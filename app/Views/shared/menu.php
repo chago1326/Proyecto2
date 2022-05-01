@@ -11,7 +11,7 @@
 			<li class="menu-item hidden"><a href="<?php echo base_url("/dashboard");?>">Mis noticias</a></li>
 			<li class="menu-item hidden"><a href="<?php echo base_url("/nuevaNoticia");?>">Ingreso de una nueva noticia</a></li>
 			<li class="menu-item hidden"><a href="<?php echo base_url("/crudNoticias");?>">Mantenimiento de noticias</a></li>
-			<li class="menu-item hidden"><a href="/" target="_blank">Logout</a>
+			<li class="menu-item hidden"><a href="<?php echo base_url("/login");?>" >Logout</a>
 			</li>
 		</ul>
 	</div>
