@@ -8,10 +8,16 @@
 			<li class="menu-toggle">
 				<button onclick="toggleMenu();">&#9776;</button>
 			</li>
+			<nav class="navbar navbar-light bg-light">
+			<a class="navbar-brand" href="">
+				<img src="icono.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+				Usuario: <?=session('nombre')?>
+			</a>
+</nav>
 			<li class="menu-item hidden"><a href="<?php echo base_url("/dashboard");?>">Mis noticias</a></li>
 			<li class="menu-item hidden"><a href="<?php echo base_url("/nuevaNoticia");?>">Ingreso de una nueva noticia</a></li>
 			<li class="menu-item hidden"><a href="<?php echo base_url("/crudNoticias");?>">Mantenimiento de noticias</a></li>
-			<li class="menu-item hidden"><a href="<?php echo base_url("/login");?>" >Logout</a>
+			<li class="menu-item hidden"><a href="<?php echo base_url("/logout")?>" >Logout</a>
 			</li>
 		</ul>
 	</div>

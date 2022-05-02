@@ -51,6 +51,8 @@ $routes->get('dashboard', 'NewsSource::dashboard');
 $routes->get('dashboard', 'NewsSource::mostrar');
 $routes->post('busqueda', 'NewsSource::busqueda');
 $routes->post('filtrar', 'NewsSource::filtrar');
+$routes->get('logout', 'User::logout');
+
 
 
 /*

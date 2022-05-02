@@ -25,12 +25,13 @@ class NewsSource extends BaseController
     //Me lleva al Mantenimiento de las noticias
     public function crudNoticias()
     {
+        $usua =session('id_cedula');
         $news = new News();
         $this->resul = $news->query("SELECT id_nue_noticas,nombre_noti,url_rss,categoria_nom,id_usuario 
         FROM `nuevas_noticias`,`usuarios`,`categorias`
          WHERE nuevas_noticias.id_usuario = usuarios.id_cedula and 
          nuevas_noticias.categoria_id = categorias.id 
-         and id_usuario = '207880338'");
+         and id_usuario = '$usua'");
         $consulta = $this->resul;
         $data['datos']=$consulta->getResultArray();
         $data['pageTitle'] = 'Mantenimiento de tus noticias';
@@ -49,13 +50,13 @@ class NewsSource extends BaseController
 
     public function  guardarNo(){
 
-        
+        $usua =session('id_cedula');
         $news = new News(); 
         $datos=[
         'nombre_noti'=>$this->request->getVar('nombre'),
         'url_rss'=>$this->request->getVar('rss'),
         'categoria_id'=>$this->request->getVar('categorias'),
-        'id_usuario'=>('207880338')
+        'id_usuario'=>($usua)
         ];
         print_r($datos);
         $news ->insert($datos);
@@ -70,7 +71,6 @@ class NewsSource extends BaseController
         $this->resul =$news->query("SELECT nuevas_noticias.id_nue_noticas,nuevas_noticias.nombre_noti,nuevas_noticias.url_rss,categorias.categoria_nom,nuevas_noticias.id_usuario FROM `nuevas_noticias`,`categorias` WHERE id_nue_noticas = '$id' and nuevas_noticias.categoria_id = categorias.id") ;
         $consulta = $this->resul;
         $data['datos'] = $consulta->getResultArray();
-
 
         //Para llenar el select si el usuario quiere cmabiar de categorias
         $categorias = new Categorias();
@@ -104,7 +104,8 @@ class NewsSource extends BaseController
     }
     //Esta funcion es una consulta a la base de datos con la informacion de la noticias para poderlas mostrar
     public function dashboard(){
-        $usua ='207880338';
+         
+        $usua =session('id_cedula');
         $noticia = new Portada();
         $this->resul =$noticia->query("SELECT * FROM `noticias` where usuario_id = '$usua'");
         $consulta = $this->resul;

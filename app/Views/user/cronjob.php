@@ -63,9 +63,10 @@
                   $title = $item->title;
                   $link = $item->link;
                   $description = $item->description;
-                  $postDate = $item->pubDate;
+                  $postDate = $item-> pubDate;
+                  $fechaFinal =date(strtotime($postDate));
                   $sql = "INSERT INTO `noticias`(`titulo`, `descripcion`, `link`, `fecha`, `id_noticia_nueva`, `usuario_id`, `categoria_id`) 
-                  VALUES ('$title','$description','$link','$postDate',
+                  VALUES ('$title','$description','$link','$fechaFinal',
                   '$idNo','$usu','$categoria')";
                   $query=mysqli_query($conn,$sql);
                   if($i>=50) break;

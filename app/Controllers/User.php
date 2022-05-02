@@ -61,6 +61,8 @@ class User extends BaseController{
 //Funcion del login para acceder al sistema 
     public function acceso()
     {
+     $session = session();
+     
      $usuario = new Usuario();
      $portada = new Portada();
         $username = $this ->request ->getVar('username');
@@ -91,9 +93,10 @@ class User extends BaseController{
                     'logged_in'     => TRUE
                 ];
                 //preguntar a marcos mañana
-                //$session->set($ses_data);
+                
+                $session->set($ses_data);
 
-                if($array2 ==null){
+                if($array2 == null){
                     return redirect()->to('/nuevaNoticia');
                 }else{
                     return redirect()->to('/dashboard');
@@ -127,5 +130,4 @@ class User extends BaseController{
         $session->destroy();
         return redirect()->to('/login');
     }
-
 }

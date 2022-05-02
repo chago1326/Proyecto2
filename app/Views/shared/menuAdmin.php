@@ -3,12 +3,17 @@
 	<div class="menu">
 		<ul>
 			<li class="logo">
-       
+				
       
 			<li class="menu-toggle">
 				<button onclick="toggleMenu();">&#9776;</button>
 			</li>
-			<li class="menu-item hidden"><a href="<?php echo base_url("/login");?>" target="_blank">Logout</a>
+			<nav class="navbar navbar-light bg-light">
+			<a class="navbar-brand" href="">
+				<img src="icono.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+				Usuario: <?=session('id_cedula')?>
+			</a>
+			<li class="menu-item hidden"><a href="<?php echo base_url("/logout");?>" >Logout</a>
 			</li>
 		</ul>
 	</div>
